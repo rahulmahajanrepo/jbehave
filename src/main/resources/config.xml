@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="com.raltd" />
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject">
+            <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                <property name="targetClass" value="java.lang.System" />
+                <property name="targetMethod" value="getProperties" />
+            </bean>
+        </property>
+        <property name="targetMethod" value="putAll"/>
+        <property name="arguments">
+            <util:properties>
+                <prop key="webdriver.ie.driver">c:\IEDriverServer.exe</prop>
+                <!--<prop key="webdriver.chrome.driver">c:\chromedriver.exe</prop>-->
+            </util:properties>
+        </property>
+    </bean>
+
+    <bean id="ieWebDriver" class="org.openqa.selenium.ie.InternetExplorerDriver" />
+    <!--<bean id="chromeWebDriver" class="org.openqa.selenium.chrome.ChromeDriver" />-->
+
+    <!--<bean id="webPage" class="com.raltd.page.WebPage">-->
+        <!--<constructor-arg ref="driverProvider"/>-->
+    <!--</bean>-->
+    <!--<bean id="driverProvider" class="com.raltd.page.IEWebDriverProvider"/>-->
+</beans>
